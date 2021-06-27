@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.devventure.todayscocktail.data.model.DrinkDetail
 import com.devventure.todayscocktail.databinding.FragmentDetailDrinkBinding
+import com.devventure.todayscocktail.presentation.adapters.DrinkDetailAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class DetailDrinkFragment : Fragment() {
@@ -16,6 +17,7 @@ class DetailDrinkFragment : Fragment() {
     private val binding: FragmentDetailDrinkBinding
         get() = _binding!!
 
+    private lateinit var mAdapter: DrinkDetailAdapter
     private lateinit var drinkDetail: DrinkDetail
     private val viewModel: DrinkViewModel by sharedViewModel()
 
@@ -47,5 +49,19 @@ class DetailDrinkFragment : Fragment() {
     private fun setDrinkDetailsToView() {
         Glide.with(requireContext()).load(drinkDetail.strDrinkThumb).into(binding.tvDrinkImage)
         binding.tvDrinkTitle.text = drinkDetail.strDrink
+        binding.tvDrinkHowTo.editText?.setText(drinkDetail.strInstructions)
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val hashMap = hashMapOf<String?, String?>()
+        hashMap[drinkDetail.strIngredient1] = drinkDetail.strMeasure1
+        hashMap[drinkDetail.strIngredient2] = drinkDetail.strMeasure2
+        mAdapter = DrinkDetailAdapter(hashMap)
+
+        binding.rvIngredients.apply {
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
     }
 }

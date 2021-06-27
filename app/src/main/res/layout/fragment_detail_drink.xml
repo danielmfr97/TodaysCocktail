@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="6dp"
     tools:context=".presentation.DetailDrinkFragment">
 
     <ImageView
@@ -37,13 +38,46 @@
         app:layout_constraintTop_toBottomOf="@id/guideline"
         tools:text="Margarita" />
 
+    <TextView
+        android:id="@+id/rvLabel"
+        style="@style/TextAppearance.MaterialComponents.Tooltip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:text="@string/ingredients_label"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/rvIngredients"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDrinkTitle" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvIngredients"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/tvDrinkHowTo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvLabel" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tvDrinkHowTo"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/drink_how_to"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDrinkTitle" />
+        app:layout_constraintTop_toBottomOf="@id/rvIngredients">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="TESTE" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
